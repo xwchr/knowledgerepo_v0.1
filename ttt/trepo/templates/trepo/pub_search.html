@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load trepo_extras %}
+
+{% block content %}
+
+{% if filterop == 'tag' %}
+  <h1>Publications with tag '{{tagname}}'</h1>
+{% elif filterop == 'companytag' %}
+  <h1>Publications with tag '{{tagname}}'</h1>
+{% else %}
+  <h1>All publications</h1>
+{% endif %}
+
+
+{% include "trepo/inc_pagination.html" with items=pubs %}
+
+<div class="repolisting">
+{% for pub in pubs %}
+  {% pub_listitem %}
+{% endfor %}
+</div>
+
+{% include "trepo/inc_pagination.html" with items=pubs %}
+
+{% endblock %}

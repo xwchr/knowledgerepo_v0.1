@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>All topics</h1>
+<p>Every topic lists a selection of relevant news articles, papers, reports and other resources, based on tags and other metadata. We will gradually add further topics and publications.</p>
+
+{% for topic in topics %}
+    <h2>{{topic.title}}</h2>
+    <div class="repotopiclisting clearfix">
+    {% for subtopic in topic.get_children %}
+        <div class="repotopicitem">
+        <h3>{{subtopic.title}}</h3>
+        <ul>
+        {% for subsubtopic in subtopic.get_children %}
+            {% if subsubtopic.status != 'draft' %} <li>{% if subsubtopic.status == 'published' %}<a href="/researchdb/topic/{{subsubtopic.slug}}/">{{subsubtopic.title}}</a>{% else %}{{subsubtopic.title}}{% endif %}</li>{% endif %}
+        {% endfor %}
+        </ul>
+        </div>
+    {% endfor %}
+    </div>
+{% endfor %}
+
+{% endblock %}

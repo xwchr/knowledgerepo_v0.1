@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load trepo_extras %}
+
+{% block content %}
+
+{% get_safe_http_referer request as httpreferer %}
+
+<a href="{% if httpreferer %}{{httpreferer}}{% else %}/researchdb/{% endif %}" class="h1back fas fa-angle-left"></a><h1>Publication Detail</h1>
+
+<p><strong>{{pub.title}}</strong></p>
+
+<p>{{pubtype}}{% if pub.publication %}, {{pub.publication}}{% endif %}
+{% if pubdate %} &middot; {{pubdate}}{% endif %}
+</p>
+
+{% if pub.authors %}<p><i>{{pub.authors}}</i></p>{% endif %}
+{% if pub.publishers %}<p>Published by: <i>{{pub.publishers}}</i></p>{% endif %}
+
+<p><strong>Description</strong><br />{{ pub.description }}</p>
+
+<div class="repoitem-tagdetail clearfix">
+  <span>Tags</span>
+  {% pub_tags 'full' %}
+</div>
+
+
+<div class="repoitem-tagdetail clearfix">
+  <span>Company tags</span>
+  {% pub_companytags 'full' %}
+</div>
+
+{% if pub.url %}
+  <p><strong>URL</strong><br /><a href="{{pub.url}}" title="External Link" target="_blank">{{pub.url}}</a></p>
+{% endif %}
+
+{% if pub.url_dl %}
+  <p><strong>Download URL</strong><br /><a href="{{pub.url_dl}}" title="External Link" target="_blank">{{pub.url_dl}}</a></p>
+{% endif %}
+
+{% if pub.url_dl_preprint %}
+  <p><strong>Download URL preprint/non-official version</strong><br /><a href="{{pub.url_dl_preprint}}" title="External Link" target="_blank">{{pub.url_dl_preprint}}</a></p>
+{% endif %}
+
+{% if pub.doi %}
+  <p><strong>DOI</strong><br />{{pub.doi}}</p>
+{% endif %}
+
+{% if pub.isbn %}
+  <p><strong>ISBN</strong><br />{{pub.isbn}}</p>
+{% endif %}
+
+{% if pub.issn %}
+  <p><strong>ISSN</strong><br />{{pub.issn}}</p>
+{% endif %}
+
+{% endblock %}

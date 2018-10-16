@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load trepo_extras %}
+
+{% block content %}
+
+<a href="/researchdb/" class="h1back fas fa-angle-left"></a><h1>{{ topic.title }}</h1>
+<p>{{ topic.description }}</p>
+
+{% for collection in collections %}
+  <h2>{{ collection.title }}</h2>
+  {% pub_list %}
+{% endfor %}
+
+
+{% endblock %}

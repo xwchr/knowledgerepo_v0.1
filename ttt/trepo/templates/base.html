@@ -1,0 +1,102 @@
+{% load static trepo_extras %}<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% if head_title %}{{ head_title }}{% else %}Tracking the Trackers{% endif %}</title>
+        <meta name="description" content="{% if head_description %}{{ head_description }}{% else %}Online knowledge repository about digital tracking, profiling, algorithmic decisions, and privacy.{% endif %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="{% static "site.webmanifest" %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static "img/favicon-32x32.png" %}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static "img/apple-touch-icon.png" %}">
+        <link rel="manifest" href="{% static "img/site.webmanifest" %}">
+        <link rel="mask-icon" href="{% static "img/safari-pinned-tab.svg" %}" color="#5bbad5">
+
+        <meta property="og:image" content="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST}}{% static "img/socialmedia260square.jpg" %}">
+        <meta property="og:image:width" content="260">
+        <meta property="og:image:height" content="260">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Tracking the Trackers">
+        <meta property="og:description" content="{% if head_description %}{{ head_description }}{% else %}Online knowledge repository about digital tracking, profiling, algorithmic decisions, and privacy.{% endif %}">
+        <meta property="og:title" content="{% if head_title %}{{ head_title }}{% else %}Tracking the Trackers{% endif %}">
+        <meta property="og:url" content="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST}}{{ request.path }}">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image" content="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST}}{% static "img/socialmedia260square.jpg" %}">
+
+        <link rel="stylesheet" href="{% static "css/normalize.css" %}">
+		<link rel="stylesheet" href="{% static "css/base.css" %}">
+        <link rel="stylesheet" href="{% static "css/main.css" %}">
+		<link rel="stylesheet" href="{% static "css/fontawesome.min.css" %}">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+{% toplevelpath request.path as toplevelpath %}
+<header class="container1">
+	<div class="centered">
+        <a id="logo-home" href="/" title="Home"><img src="{% static "img/topnav_logo3.jpg" %}" width="250" height="80" alt="Logo" /></a>
+        <div id="topright">Beta Version 0.7 | <a href="/about/" title="About">Learn more</a></div>
+		<nav id="topnav">
+			<a id="topnav-menulink" href="javascript:void(0);" onclick="toggleTopnavMenu()">&#9776;</a>
+			<a href="/researchdb/"{% if toplevelpath == "researchdb" %} class="active"{% endif %} title="Research Database">Research Database</a>
+<!--
+			<a href="#" title="">Company Profiles</a>
+			<a href="#" title="">Blog</a>
+-->
+			<a href="/projects/"{% if toplevelpath == "projects" %} class="active"{% endif %} title="">Projects</a>
+			<a href="/about/"{% if toplevelpath == "about" %} class="active"{% endif %} title="About">About</a>
+		</nav>
+	</div>
+</header>
+
+{% if toplevelpath != "home" %}
+<div class="container2 subnav">
+    {% if toplevelpath == "researchdb" %}
+    <div class="centered">
+		<nav id="subnav" class="clearfix">
+			<a href="/researchdb/"{% if subid == "repo-all" %} class="active"{% endif %} title="All topics"><span class="fas fa-home"></span><span class="txt">All Topics</span></a>
+			{% if subid == "repo-topic" %}<span class="nonlink active"><span class="fas fa-align-justify"></span><span class="txt">Topic</span></span>{% endif %}
+			<a href="/researchdb/tags/"{% if subid == "repo-tags" %} class="active"{% endif %} title="All tags"><span class="fas fa-tags"></span><span class="txt">Tags</span> <span class="numbercloud">{% all_tags_count %}</span></a>
+			<a href="/researchdb/companies/"{% if subid == "repo-companytags" %} class="active"{% endif %} title="All companies, products, and services"><span class="fas fa-tags"></span><span class="txt">Companies</span> <span class="numbercloud">{% all_companytags_count %}</span></a>
+			<a href="/researchdb/pub/"{% if subid == "repo-publications" %} class="active"{% endif %} title="Publications"><span class="fas fa-search"></span><span class="txt">Publications</span> <span class="numbercloud">{% all_pubs_count %}</span></a>
+            {% if subid == "repo-pubdetail" %}<span class="nonlink active"><span class="fas fa-align-justify"></span><span class="txt">Publication Detail</span></span>{% endif %}
+		</nav>
+    </div>
+    {% else %}
+    <div class="centered nosubnav">
+    </div>
+    {% endif %}        
+</div>
+{% endif %}
+
+<div class="container3{% if toplevelpath == "home" %} container3-home{% endif%}">
+	<div class="centered content {{ mainid }} {{ subid }} {% if flatpage %}flatpage{% endif %} clearfix">
+      {% block content %}
+      {% endblock %}
+
+	</div>
+</div>
+
+<footer class="container4">
+	<div class="centered clearfix">
+		<div class="left">(c) 2018 Cracked Labs, CC BY-SA 4.0 (unless indicated otherwise)</div>
+		<div class="right">
+			<a style="padding-right:10px;" href="/imprint/" title="Contact">Contact</a> 
+            <a style="padding-right:10px;" href="/imprint/" title="Imprint">Imprint</a> 
+            <a style="padding-right:10px;" href="/imprint/" title="Privacy Policy">Privacy Policy</a> 
+			<a href="/about/" title="About">About</a>
+		</div>
+	</div>
+</footer>
+        
+        <script src="{% static "js/modernizr-3.5.0.min.js" %}"></script>
+        <script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+        <script src="{% static "js/plugins.js" %}"></script>
+        <script src="{% static "js/main.js" %}"></script>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+<div class="tags">
+  {% for tag in tags %}
+    <a href="/researchdb/pub/companytag/{{tag.slug}}/">{{ tag.name }}</a> 
+  {% endfor %}
+  {% if not full %}<a href="#" class="moretags">More</a>{% endif %}
+</div>

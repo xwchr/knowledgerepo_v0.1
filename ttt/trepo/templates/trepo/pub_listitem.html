@@ -1,0 +1,31 @@
+{% load trepo_extras %}
+
+<div class="repoitem clearfix">
+  <h3><a href="/researchdb/pubdetail/{{pub.slug}}/" title="Publication Detail">{{ pub.title }}</a>{% if authorstring %}, {{ authorstring }}{% endif %} ({{ pubtype }})</h3>
+  {% if pubmeta %}
+      <span>
+          {% if pubdatestring %}<span>{% if pubdate %}{{ pubdate }}{% endif %}{% if pubstring %}{% if pubdate %} &middot; {% endif %}{{pubstring}}{% endif %}</span><br />{% endif %}
+          {% if pub.description %}{{ pub.description}} {% endif %}
+      </span>
+  {% endif %}
+  {% pub_tags %}
+  {% if url_dl %}
+      <a class="detail" href="{{ url_dl }}" target="_blank" title="Link to external download"><span class="fas fa-download"></span>Download</a>
+  {% elif url_site %}
+      <a class="detail" href="{{ url_site }}" target="_blank" title="Link to external website"><span class="fas fa-external-link-square-alt"></span>Visit Website</a>
+  {% endif %}
+
+  {% if pub.cnt %}
+    {% get_relatedpubs as relatedpubs %}
+    {% for relatedpub in relatedpubs %}
+      {% if forloop.first %}
+        <h4>Related:</h4>
+        <ul>
+      {% endif %}
+        <li class="clearfix"><span class="fas fa-plus-square"></span><span class="repoitem-relatedtxt">{% pub_listitem_short relatedpub %}</span></li>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

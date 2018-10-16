@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>All companies, products, and services</h1>
+
+<div class="tags">
+  {% for tag in tags %}
+    <a href="/researchdb/pub/companytag/{{tag.slug}}/">{{ tag.name }}</a>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
