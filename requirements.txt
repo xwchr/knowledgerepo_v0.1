@@ -1,0 +1,12 @@
+Django==2.0.7
+django-admin-sortable2==0.6.19
+django-autocomplete-light==3.2.10
+django-cachalot==2.0.1
+django-js-asset==1.1.0
+django-mptt==0.9.0
+django-tagulous==0.13.2
+psycopg2==2.7.5
+python-memcached==1.59
+pytz==2018.5
+six==1.11.0
+yolk3k==0.9
