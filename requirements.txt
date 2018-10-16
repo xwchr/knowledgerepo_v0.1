@@ -1,4 +1,4 @@
-Django==2.0.7
+Django==2.0.8
 django-admin-sortable2==0.6.19
 django-autocomplete-light==3.2.10
 django-cachalot==2.0.1
